@@ -1,7 +1,5 @@
-import "./App.css";
-
 function App() {
-    return <></>;
+    return <div>Hello, ViteJS</div>;
 }
 
 export default App;
