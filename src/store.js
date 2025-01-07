@@ -1,12 +1,19 @@
+import { combineReducers } from "redux";
 import { createStore } from "redux";
 
-const initialState = {
+const initialStateAccount = {
     balance: 0,
     loan: 0,
     loanPurpose: "",
 };
 
-const reducer = (state = initialState, action = {}) => {
+const initialStateCustomer = {
+    fullName: "",
+    nationalID: "",
+    createAt: "",
+};
+
+const accountReducer = (state = initialStateAccount, action = {}) => {
     switch (action.type) {
         case "account/deposit":
             return {
@@ -35,9 +42,33 @@ const reducer = (state = initialState, action = {}) => {
             return state;
     }
 };
+const customerReducer = (state = initialStateCustomer, action = {}) => {
+    switch (action.type) {
+        case "customer/createCustomer":
+            return {
+                ...state,
+                fullName: action.payload.fullName,
+                nationalID: action.payload.nationalID,
+                createAt: action.payload.createAt,
+            };
+        case "customer/updateName":
+            return {
+                ...state,
+                fullName: action.payload,
+            };
+        default:
+            return state;
+    }
+};
 
-const store = createStore(reducer);
+const rootReducer = combineReducers({
+    account: accountReducer,
+    customer: customerReducer,
+});
 
+const store = createStore(rootReducer);
+
+// Actions
 const deposit = (amount) => {
     return {
         type: "account/deposit",
@@ -65,5 +96,23 @@ const requestLoan = (amount, purpose) => {
 const payLoan = () => {
     return {
         type: "account/payLoan",
+    };
+};
+
+const createCustomer = (fullName, nationalID) => {
+    return {
+        type: "customer/createCustomer",
+        payload: {
+            fullName,
+            nationalID,
+            createAt: new Date().toISOString(),
+        },
+    };
+};
+
+const updateName = (fullName) => {
+    return {
+        type: "customer/updateName",
+        payload: fullName,
     };
 };
