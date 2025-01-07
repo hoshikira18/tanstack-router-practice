@@ -1,8 +1,16 @@
-# React + Vite
+# Pets
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains a collection of small projects I created to review and reinforce my knowledge of ReactJS.
 
-Currently, two official plugins are available:
+## Pages
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. **useReducer Hook Practice**  
+A project designed to explore and practice the useReducer hook in ReactJS.   
+[View Project](https://pets-39o.pages.dev/use-reducer)
+
+## Technologies Used
+
+- **Vite.js**
+- **ReactJS**
+- **TailwindCSS**
+- **Mantine UI**
