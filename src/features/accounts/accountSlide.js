@@ -24,6 +24,10 @@ const accountReducer = (state = initialStateAccount, action = {}) => {
                 loanPurpose: action.payload.purpose,
             };
         case "account/payLoan":
+            if (state.loan > state.balance) {
+                alert("Not enough money!");
+                return state;
+            }
             return {
                 ...state,
                 loan: 0,
