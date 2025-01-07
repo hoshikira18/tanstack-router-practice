@@ -22,10 +22,10 @@
     "dependencies": {
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "react-router-dom": "^7.1.1"
+        "react-router-dom": "^7.1.1",
+        "redux": "^5.0.1"
     },
     "devDependencies": {
-        "tailwind-merge": "^2.6.0",
         "@biomejs/biome": "1.9.4",
         "@commitlint/config-conventional": "^19.6.0",
         "@eslint/js": "^9.15.0",
@@ -41,6 +41,7 @@
         "husky": "^9.1.7",
         "lint-staged": "^15.2.11",
         "postcss": "^8.4.49",
+        "tailwind-merge": "^2.6.0",
         "tailwindcss": "^3.4.16",
         "vite": "^6.0.1"
     }
