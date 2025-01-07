@@ -7,12 +7,8 @@ const menuItems = [
         href: "/use-reducer",
     },
     {
-        label: "useReducer hook",
-        href: "/use-reducer",
-    },
-    {
-        label: "useReducer hook",
-        href: "/use-reducer",
+        label: "Redux",
+        href: "/redux",
     },
 ];
 
