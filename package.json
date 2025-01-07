@@ -20,10 +20,13 @@
         }
     },
     "dependencies": {
+        "add": "^2.0.6",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
+        "react-redux": "^9.2.0",
         "react-router-dom": "^7.1.1",
-        "redux": "^5.0.1"
+        "redux": "^5.0.1",
+        "use-debounce": "^10.0.4"
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.4",

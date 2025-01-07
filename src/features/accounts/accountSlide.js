@@ -9,7 +9,7 @@ const accountReducer = (state = initialStateAccount, action = {}) => {
         case "account/deposit":
             return {
                 ...state,
-                balance: state.balance + action.payload,
+                balance: state.balance + Number(action.payload),
             };
         case "account/withdraw":
             return {
@@ -20,7 +20,8 @@ const accountReducer = (state = initialStateAccount, action = {}) => {
             if (state.loan > 0) return state;
             return {
                 ...state,
-                loan: action.payload,
+                loan: action.payload.amount,
+                loanPurpose: action.payload.purpose,
             };
         case "account/payLoan":
             return {
