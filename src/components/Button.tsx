@@ -33,4 +33,3 @@ const Button = <E extends ElementType = "button">({
 };
 
 export default Button;
-tton;
