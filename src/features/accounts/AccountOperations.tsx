@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Button from "../../components/Button";
+import type { StoreProps } from "../../types/store";
 import { deposit, payLoan, requestLoan, withdraw } from "./accountSlide";
 
 const AccountOperations = () => {
@@ -13,7 +14,7 @@ const AccountOperations = () => {
 
     const dispatch = useDispatch();
     const { loan: currentLoan, loanPurpose: currentLoanPurpose } = useSelector(
-        (store) => store.account,
+        (store: StoreProps) => store.account,
     );
 
     const handleDeposit = () => {
