@@ -20,6 +20,9 @@ const Home = () => {
                     {index + 1}. {item.label}
                 </Button>
             ))}
+            <Button component="a" href="">
+                Click
+            </Button>
         </div>
     );
 };

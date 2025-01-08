@@ -1,32 +1,22 @@
+import type { ComponentPropsWithRef, ElementType, JSXElementConstructor } from "react";
 import { twMerge } from "tailwind-merge";
 
-type PolymorphicPropsFactory<T extends React.ElementType, P> = {
-    component?: T;
-    children?: React.ReactNode;
-    className?: string;
-} & React.RefAttributes<T> &
-    P;
+type IntrinsicAttributes<E extends keyof JSX.IntrinsicElements | JSXElementConstructor<unknown>> =
+    JSX.LibraryManagedAttributes<E, ComponentPropsWithRef<E>>;
 
-type PolymorphicProps<
-    T extends React.ElementType,
-    FallbackPropsType,
-> = T extends React.FunctionComponent<infer P>
-    ? PolymorphicPropsFactory<T, P>
-    : T extends string
-      ? PolymorphicPropsFactory<T, React.HTMLAttributes<T>>
-      : PolymorphicPropsFactory<T, FallbackPropsType>;
+export interface ButtonOwnProps<E extends ElementType = ElementType> {
+    component?: E;
+}
 
-type ButtonProps<T extends React.ElementType = "button"> = PolymorphicProps<
-    T,
-    React.ButtonHTMLAttributes<HTMLButtonElement>
->;
+export type ButtonProps<E extends ElementType> = ButtonOwnProps<E> &
+    Omit<IntrinsicAttributes<E>, keyof ButtonOwnProps>;
 
-export default function Button<T extends React.ElementType>({
+const Button = <E extends ElementType = "button">({
     component,
     children,
     className,
     ...props
-}: ButtonProps<T>): JSX.Element {
+}: ButtonProps<E>) => {
     const Component = component || "button";
 
     return (
@@ -40,4 +30,7 @@ export default function Button<T extends React.ElementType>({
             {children}
         </Component>
     );
-}
+};
+
+export default Button;
+tton;

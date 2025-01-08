@@ -1,5 +1,5 @@
 import { combineReducers, createStore } from "redux";
-import accountReducer from "./features/accounts/accountSlide";
+import accountReducer, { initialStateAccount } from "./features/accounts/accountSlide";
 import customerReducer from "./features/customers/customerSlide";
 
 const rootReducer = combineReducers({
@@ -7,6 +7,8 @@ const rootReducer = combineReducers({
     customer: customerReducer,
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, {
+    account: initialStateAccount,
+});
 
 export default store;
