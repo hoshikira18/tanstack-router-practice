@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout.jsx";
-import Home from "./pages/Home.jsx";
-import Redux from "./pages/Redux.jsx";
-import UseReducer from "./pages/UseReducer.jsx";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import Redux from "./pages/Redux";
+import UseReducer from "./pages/UseReducer";
 
 function App() {
     return (
