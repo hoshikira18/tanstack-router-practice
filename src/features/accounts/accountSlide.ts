@@ -1,20 +1,35 @@
-const initialStateAccount = {
+import type { AccountProps } from "../../types/store";
+
+const initialStateAccount: AccountProps = {
     balance: 0,
     loan: 0,
     loanPurpose: "",
 };
 
-const accountReducer = (state = initialStateAccount, action = {}) => {
+type PayloadProps = { amount: number } | { amount: number; purpose: string } | object;
+
+type actionProps = {
+    type: string;
+    payload: PayloadProps;
+};
+
+const accountReducer = (
+    state = initialStateAccount,
+    action: actionProps = {
+        type: "",
+        payload: {},
+    },
+) => {
     switch (action.type) {
         case "account/deposit":
             return {
                 ...state,
-                balance: state.balance + Number(action.payload),
+                balance: state.balance + action.payload.amount,
             };
         case "account/withdraw":
             return {
                 ...state,
-                balance: state.balance - action.payload,
+                balance: state.balance - action.payload.amount,
             };
         case "account/requestLoan":
             if (state.loan > 0) return state;
@@ -40,21 +55,25 @@ const accountReducer = (state = initialStateAccount, action = {}) => {
 };
 
 // Actions
-export const deposit = (amount) => {
+export const deposit = (amount: number) => {
     return {
         type: "account/deposit",
-        payload: amount,
+        payload: {
+            amount,
+        },
     };
 };
 
-export const withdraw = (amount) => {
+export const withdraw = (amount: number) => {
     return {
         type: "account/withdraw",
-        payload: amount,
+        payload: {
+            amount,
+        },
     };
 };
 
-export const requestLoan = (amount, purpose) => {
+export const requestLoan = (amount: number, purpose: string) => {
     return {
         type: "account/requestLoan",
         payload: {

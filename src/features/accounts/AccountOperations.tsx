@@ -6,9 +6,9 @@ import type { StoreProps } from "../../types/store";
 import { deposit, payLoan, requestLoan, withdraw } from "./accountSlide";
 
 const AccountOperations = () => {
-    const [depositAmount, setDepositAmount] = useState("");
-    const [withdrawAmount, setWithdrawAmount] = useState("");
-    const [loanAmount, setLoanAmount] = useState("");
+    const [depositAmount, setDepositAmount] = useState(0);
+    const [withdrawAmount, setWithdrawAmount] = useState(0);
+    const [loanAmount, setLoanAmount] = useState(0);
     const [loanPurpose, setLoanPurpose] = useState("");
     const [currency, setCurrency] = useState("USD");
 
@@ -20,19 +20,19 @@ const AccountOperations = () => {
     const handleDeposit = () => {
         if (!depositAmount) return;
         dispatch(deposit(depositAmount));
-        setDepositAmount("");
+        setDepositAmount(0);
     };
 
     const handleWithdraw = () => {
         if (!withdrawAmount) return;
         dispatch(withdraw(withdrawAmount));
-        setWithdrawAmount("");
+        setWithdrawAmount(0);
     };
 
     const handleRequestLoan = () => {
         if (!loanAmount || !loanPurpose) return;
         dispatch(requestLoan(loanAmount, loanPurpose));
-        setLoanAmount("");
+        setLoanAmount(0);
         setLoanPurpose("");
     };
 
@@ -47,11 +47,11 @@ const AccountOperations = () => {
                 <label htmlFor="depositAmount">
                     Deposit:
                     <input
-                        type="text"
+                        type="number"
                         id="depositAmount"
                         className="ml-2 rounded-md p-1"
                         value={depositAmount}
-                        onChange={(e) => setDepositAmount(e.target.value)}
+                        onChange={(e) => setDepositAmount(Number(e.target.value))}
                     />
                 </label>
                 <label htmlFor="currency">
@@ -76,7 +76,7 @@ const AccountOperations = () => {
                         id="withdrawAmount"
                         className="ml-2 rounded-md p-1"
                         value={withdrawAmount}
-                        onChange={(e) => setWithdrawAmount(e.target.value)}
+                        onChange={(e) => setWithdrawAmount(Number(e.target.value))}
                     />
                 </label>
                 <Button onClick={handleWithdraw}>WITHDRAW</Button>
@@ -90,7 +90,7 @@ const AccountOperations = () => {
                         placeholder="Loan amount"
                         className="ml-2 rounded-md p-1"
                         value={loanAmount}
-                        onChange={(e) => setLoanAmount(e.target.value)}
+                        onChange={(e) => setLoanAmount(Number(e.target.value))}
                     />
                 </label>
                 <label htmlFor="loanPurpose">

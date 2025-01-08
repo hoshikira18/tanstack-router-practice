@@ -1,10 +1,10 @@
-type AccountProps = {
+export type AccountProps = {
     balance: number;
     loan: number;
     loanPurpose: string;
 };
 
-type CustomerProps = {
+export type CustomerProps = {
     fullName: string;
     nationalID: string;
     createAt: string;
