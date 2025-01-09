@@ -1,9 +1,12 @@
+import { ThunkAction } from "redux-thunk";
+import type { AppDispatch, GetState } from "../../store";
 import type { AccountProps } from "../../types/store";
 
 export const initialStateAccount: AccountProps = {
     balance: 2,
     loan: 2,
     loanPurpose: "",
+    isLoading: false,
 };
 
 type Action =
@@ -28,6 +31,9 @@ type Action =
       }
     | {
           type: "account/payLoan";
+      }
+    | {
+          type: "account/convertingCurrency";
       };
 
 const accountReducer = (state: AccountProps, action: Action) => {
@@ -37,6 +43,7 @@ const accountReducer = (state: AccountProps, action: Action) => {
             return {
                 ...state,
                 balance: state.balance + action.payload.amount,
+                isLoading: false,
             };
         case "account/withdraw":
             return {
@@ -61,18 +68,43 @@ const accountReducer = (state: AccountProps, action: Action) => {
                 loanPurpose: "",
                 balance: state.balance - state.loan,
             };
+        case "account/convertingCurrency":
+            return {
+                ...state,
+                isLoading: true,
+            };
         default:
             return state;
     }
 };
 
 // Actions
-export const deposit = (amount: number) => {
-    return {
-        type: "account/deposit",
-        payload: {
-            amount,
-        },
+export const deposit = (amount: number, currency: string) => {
+    if (currency === "USD")
+        return {
+            type: "account/deposit",
+            payload: {
+                amount,
+            },
+        };
+    return async (dispatch: AppDispatch, getState: GetState) => {
+        dispatch({
+            type: "account/convertingCurrency",
+        });
+        // API call
+        const res = await fetch(
+            `https://api.frankfurter.dev/v1/latest?amount=${amount}&from=${currency}&to=USD`,
+        );
+        const data = await res.json();
+        const converted = data.rates.USD;
+
+        // return action
+        dispatch({
+            type: "account/deposit",
+            payload: {
+                amount: converted,
+            },
+        });
     };
 };
 
