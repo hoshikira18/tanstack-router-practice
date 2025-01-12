@@ -1,8 +1,16 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout";
-import Home from "./pages/Home";
+import Home, { loader } from "./pages/Home";
 import Redux from "./pages/Redux";
 import UseReducer from "./pages/UseReducer";
+import "@mantine/core/styles.css";
+import "@mantine/nprogress/styles.css";
+import { MantineProvider, createTheme } from "@mantine/core";
+import { NavigationProgress } from "@mantine/nprogress";
+
+const theme = createTheme({
+    /** Put your mantine theme override here */
+});
 
 const router = createBrowserRouter([
     {
@@ -11,6 +19,7 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />,
+                loader: loader,
             },
             {
                 path: "/use-reducer",
@@ -25,7 +34,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-    return <RouterProvider router={router} />;
+    return (
+        <MantineProvider theme={theme}>
+            <NavigationProgress />
+            <RouterProvider router={router} />
+        </MantineProvider>
+    );
 }
 
 export default App;
