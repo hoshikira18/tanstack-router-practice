@@ -11,11 +11,13 @@ const menuItems = [
         label: "Redux",
         href: "/redux",
     },
+    {
+        label: "Loader practice",
+        href: "/loader",
+    },
 ];
 
 const Home = () => {
-    const data = useLoaderData();
-
     return (
         <div className="flex flex-col gap-4">
             {menuItems.map((item, index) => (
@@ -26,18 +28,6 @@ const Home = () => {
             <Button>Click</Button>
         </div>
     );
-};
-
-export const loader = async () => {
-    const data = await fetch("https://api.artic.edu/api/v1/artworks", {
-        method: "GET",
-    })
-        .then((res) => res.json())
-        .then(({ data }) => data)
-        .catch(() => {
-            throw new Error("Failed fetching data!");
-        });
-    return data;
 };
 
 export default Home;
