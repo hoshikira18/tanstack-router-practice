@@ -1,11 +1,4 @@
-import { isRouteErrorResponse, useRouteError } from "react-router-dom";
-
-interface ErrorResponse {
-    data: string;
-    status: number;
-    statusText: string;
-    message?: string;
-}
+import { useRouteError } from "react-router-dom";
 
 const ErrorPage = () => {
     const error = useRouteError();
