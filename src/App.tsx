@@ -7,6 +7,7 @@ import "@mantine/core/styles.css";
 import "@mantine/nprogress/styles.css";
 import { MantineProvider, createTheme } from "@mantine/core";
 import { NavigationProgress } from "@mantine/nprogress";
+import ErrorPage from "./pages/ErrorPage";
 
 const theme = createTheme({
     /** Put your mantine theme override here */
@@ -15,6 +16,7 @@ const theme = createTheme({
 const router = createBrowserRouter([
     {
         element: <Layout />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "/",
