@@ -7,6 +7,7 @@ import "@mantine/core/styles.css";
 import "@mantine/nprogress/styles.css";
 import { MantineProvider, createTheme } from "@mantine/core";
 import { NavigationProgress } from "@mantine/nprogress";
+import ActionPractice, { action } from "./pages/ActionPractice";
 import ErrorPage from "./pages/ErrorPage";
 import LoaderPractice, { loader } from "./pages/LoaderPractice";
 
@@ -35,6 +36,11 @@ const router = createBrowserRouter([
                 path: "/loader",
                 element: <LoaderPractice />,
                 loader: loader,
+            },
+            {
+                path: "/action",
+                element: <ActionPractice />,
+                action: action,
             },
         ],
     },

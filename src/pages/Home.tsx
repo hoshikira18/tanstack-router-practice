@@ -14,6 +14,10 @@ const menuItems = [
         label: "Loader practice",
         href: "/loader",
     },
+    {
+        label: "Action practice",
+        href: "/action",
+    },
 ];
 
 const Home = () => {
