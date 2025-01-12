@@ -15,7 +15,6 @@ const menuItems = [
 
 const Home = () => {
     const data = useLoaderData();
-    console.log(data);
 
     return (
         <div className="flex flex-col gap-4">
@@ -35,11 +34,8 @@ export const loader = async () => {
     })
         .then((res) => res.json())
         .then(({ data }) => data)
-        .catch((err) => {
-            console.error(err);
-        })
-        .finally(() => {
-            // nprogress.stop();
+        .catch(() => {
+            throw new Error("Failed fetching data!");
         });
     return data;
 };
