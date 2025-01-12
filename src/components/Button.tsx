@@ -22,7 +22,7 @@ const Button = <E extends ElementType = "button">({
     return (
         <Component
             className={twMerge(
-                "inline-block px-4 py-2 bg-indigo-600 rounded-md text-white active:translate-y-0.5 transition-all duration-100",
+                "inline-block px-4 py-2 bg-indigo-600 rounded-md text-white active:translate-y-0.5 transition-all duration-100 focus:outline-none focus:ring focus:ring-indigo-500 focus:bg-indigo-500 focus:ring-offset-1",
                 className,
             )}
             {...props}
