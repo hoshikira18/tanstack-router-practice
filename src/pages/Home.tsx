@@ -1,5 +1,4 @@
-import { nprogress } from "@mantine/nprogress";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "../components/Button";
 
 const menuItems = [
@@ -25,7 +24,6 @@ const Home = () => {
                     {index + 1}. {item.label}
                 </Button>
             ))}
-            <Button>Click</Button>
         </div>
     );
 };
