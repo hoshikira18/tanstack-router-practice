@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import AccountOperations from "../features/accounts/AccountOperations";
 import CreateCustomer from "../features/customers/CreateCustomer";

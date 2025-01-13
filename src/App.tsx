@@ -10,6 +10,7 @@ import { NavigationProgress } from "@mantine/nprogress";
 import ActionPractice, { action } from "./pages/ActionPractice";
 import ErrorPage from "./pages/ErrorPage";
 import LoaderPractice, { loader } from "./pages/LoaderPractice";
+import ReactQueryPractice from "./pages/ReactQueryPractice";
 
 const theme = createTheme({
     /** Put your mantine theme override here */
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
                 path: "/action",
                 element: <ActionPractice />,
                 action: action,
+            },
+            {
+                path: "/react-query",
+                element: <ReactQueryPractice />,
             },
         ],
     },

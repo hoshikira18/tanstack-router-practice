@@ -18,6 +18,10 @@ const menuItems = [
         label: "Action practice",
         href: "/action",
     },
+    {
+        label: "React Query",
+        href: "/react-query",
+    },
 ];
 
 const Home = () => {
