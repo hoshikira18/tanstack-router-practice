@@ -12,7 +12,7 @@ const reactQuery = new QueryClient({
     defaultOptions: {
         queries: {
             staleTime: 1000 * 10,
-            cacheTime: 1000 * 2,
+            cacheTime: 1000 * 20,
         },
     },
 });

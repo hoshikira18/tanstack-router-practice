@@ -22,6 +22,14 @@ const menuItems = [
         label: "React Query",
         href: "/react-query",
     },
+    {
+        label: "React Hook Form",
+        href: "/react-hook-form",
+    },
+    {
+        label: "Compount Component Practice",
+        href: "/compound-components",
+    },
 ];
 
 const Home = () => {

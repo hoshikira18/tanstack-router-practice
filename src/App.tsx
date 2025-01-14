@@ -8,8 +8,10 @@ import "@mantine/nprogress/styles.css";
 import { MantineProvider, createTheme } from "@mantine/core";
 import { NavigationProgress } from "@mantine/nprogress";
 import ActionPractice, { action } from "./pages/ActionPractice";
+import CompoundComponent from "./pages/CompoundComponent";
 import ErrorPage from "./pages/ErrorPage";
 import LoaderPractice, { loader } from "./pages/LoaderPractice";
+import ReactHookFormPractice from "./pages/ReactHookFormPractice";
 import ReactQueryPractice from "./pages/ReactQueryPractice";
 
 const theme = createTheme({
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
             {
                 path: "/react-query",
                 element: <ReactQueryPractice />,
+            },
+            {
+                path: "/react-hook-form",
+                element: <ReactHookFormPractice />,
+            },
+            {
+                path: "/compound-components",
+                element: <CompoundComponent />,
             },
         ],
     },
