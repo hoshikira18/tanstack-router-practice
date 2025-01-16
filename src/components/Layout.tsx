@@ -15,7 +15,7 @@ const Layout = () => {
     }, [isLoading]);
 
     return (
-        <div className={"p-10"}>
+        <div className={"bg-gray-200 h-screen p-10"}>
             <Outlet />
         </div>
     );

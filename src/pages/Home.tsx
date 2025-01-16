@@ -30,6 +30,10 @@ const menuItems = [
         label: "Compount Component Practice",
         href: "/compound-components",
     },
+    {
+        label: "Modal",
+        href: "/modal",
+    },
 ];
 
 const Home = () => {

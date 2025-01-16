@@ -11,6 +11,7 @@ import ActionPractice, { action } from "./pages/ActionPractice";
 import CompoundComponent from "./pages/CompoundComponent";
 import ErrorPage from "./pages/ErrorPage";
 import LoaderPractice, { loader } from "./pages/LoaderPractice";
+import ModalPractice from "./pages/ModalPractice";
 import ReactHookFormPractice from "./pages/ReactHookFormPractice";
 import ReactQueryPractice from "./pages/ReactQueryPractice";
 
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
             {
                 path: "/compound-components",
                 element: <CompoundComponent />,
+            },
+            {
+                path: "/modal",
+                element: <ModalPractice />,
             },
         ],
     },
