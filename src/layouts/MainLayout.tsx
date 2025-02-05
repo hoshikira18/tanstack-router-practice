@@ -27,7 +27,11 @@ const MainLayout = () => {
                                     },
                                 }}
                             >
-                                {linkItem.label}
+                                {({ isActive }) => (
+                                    <>
+                                        {linkItem.label} {isActive && "-"}
+                                    </>
+                                )}
                             </Link>
                         </li>
                     );
