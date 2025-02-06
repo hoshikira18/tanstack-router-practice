@@ -1,4 +1,4 @@
-import { Input } from "@mantine/core";
+import { Checkbox, Input, MultiSelect, Select } from "@mantine/core";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import * as v from "valibot";
 
@@ -21,12 +21,23 @@ function RouteComponent() {
     const navigate = useNavigate({ from: Route.fullPath });
     const { query = "", hasDiscount, categories } = Route.useSearch();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        navigate({ search: (prev) => ({ ...prev, query: e.target.value }) });
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
+
+    const updateFilter = (name: keyof ItemFilters, value: unknown) => {
+        navigate({ search: (prev) => ({ ...prev, [name]: value }) });
     };
     return (
-        <div>
+        <div className="space-y-3 p-10">
             <Input value={query} onChange={handleChange} />
+            <Checkbox
+                checked={Boolean(hasDiscount)}
+                label="Has discount?"
+                onChange={(e) => updateFilter("hasDiscount", e.target.checked)}
+            />
+            <MultiSelect
+                data={["clothing", "books", "electionics"]}
+                onChange={(e) => updateFilter("categories", e)}
+            />
             <pre>
                 {JSON.stringify({
                     query,

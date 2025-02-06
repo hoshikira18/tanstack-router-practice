@@ -17,5 +17,5 @@ This repository contains a collection of small projects I created to review and 
 - Active route
 - useParams hook -> to get dynamic params (id, slug,...)
 - loader
-- validateSearch
+- validateSearch (define type with valibot)
 
