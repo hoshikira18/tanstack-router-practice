@@ -21,14 +21,12 @@ function RouteComponent() {
     const navigate = useNavigate({ from: Route.fullPath });
     const { query = "", hasDiscount, categories } = Route.useSearch();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
-
     const updateFilter = (name: keyof ItemFilters, value: unknown) => {
         navigate({ search: (prev) => ({ ...prev, [name]: value }) });
     };
     return (
         <div className="space-y-3 p-10">
-            <Input value={query} onChange={handleChange} />
+            <Input value={query} onChange={(e) => updateFilter("query", e.target.value)} />
             <Checkbox
                 checked={Boolean(hasDiscount)}
                 label="Has discount?"
