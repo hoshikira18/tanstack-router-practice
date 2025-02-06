@@ -11,3 +11,11 @@ This repository contains a collection of small projects I created to review and 
 - **Mantine UI**
 - **Tanstack Router**
 
+## Learned knownledge
+- File base routing
+- Nested route
+- Active route
+- useParams hook -> to get dynamic params (id, slug,...)
+- loader
+- validateSearch
+

@@ -11,10 +11,19 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
+import { Route as ArtworkIdImport } from "./routes/artwork/$id";
+import { Route as ArtworkIndexImport } from "./routes/artwork/index";
 import { Route as IndexImport } from "./routes/index";
 import { Route as ProfilesImport } from "./routes/profiles";
+import { Route as SearchImport } from "./routes/search";
 
 // Create/Update Routes
+
+const SearchRoute = SearchImport.update({
+    id: "/search",
+    path: "/search",
+    getParentRoute: () => rootRoute,
+} as any);
 
 const ProfilesRoute = ProfilesImport.update({
     id: "/profiles",
@@ -25,6 +34,18 @@ const ProfilesRoute = ProfilesImport.update({
 const IndexRoute = IndexImport.update({
     id: "/",
     path: "/",
+    getParentRoute: () => rootRoute,
+} as any);
+
+const ArtworkIndexRoute = ArtworkIndexImport.update({
+    id: "/artwork/",
+    path: "/artwork/",
+    getParentRoute: () => rootRoute,
+} as any);
+
+const ArtworkIdRoute = ArtworkIdImport.update({
+    id: "/artwork/$id",
+    path: "/artwork/$id",
     getParentRoute: () => rootRoute,
 } as any);
 
@@ -46,6 +67,27 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof ProfilesImport;
             parentRoute: typeof rootRoute;
         };
+        "/search": {
+            id: "/search";
+            path: "/search";
+            fullPath: "/search";
+            preLoaderRoute: typeof SearchImport;
+            parentRoute: typeof rootRoute;
+        };
+        "/artwork/$id": {
+            id: "/artwork/$id";
+            path: "/artwork/$id";
+            fullPath: "/artwork/$id";
+            preLoaderRoute: typeof ArtworkIdImport;
+            parentRoute: typeof rootRoute;
+        };
+        "/artwork/": {
+            id: "/artwork/";
+            path: "/artwork";
+            fullPath: "/artwork";
+            preLoaderRoute: typeof ArtworkIndexImport;
+            parentRoute: typeof rootRoute;
+        };
     }
 }
 
@@ -54,36 +96,51 @@ declare module "@tanstack/react-router" {
 export interface FileRoutesByFullPath {
     "/": typeof IndexRoute;
     "/profiles": typeof ProfilesRoute;
+    "/search": typeof SearchRoute;
+    "/artwork/$id": typeof ArtworkIdRoute;
+    "/artwork": typeof ArtworkIndexRoute;
 }
 
 export interface FileRoutesByTo {
     "/": typeof IndexRoute;
     "/profiles": typeof ProfilesRoute;
+    "/search": typeof SearchRoute;
+    "/artwork/$id": typeof ArtworkIdRoute;
+    "/artwork": typeof ArtworkIndexRoute;
 }
 
 export interface FileRoutesById {
     __root__: typeof rootRoute;
     "/": typeof IndexRoute;
     "/profiles": typeof ProfilesRoute;
+    "/search": typeof SearchRoute;
+    "/artwork/$id": typeof ArtworkIdRoute;
+    "/artwork/": typeof ArtworkIndexRoute;
 }
 
 export interface FileRouteTypes {
     fileRoutesByFullPath: FileRoutesByFullPath;
-    fullPaths: "/" | "/profiles";
+    fullPaths: "/" | "/profiles" | "/search" | "/artwork/$id" | "/artwork";
     fileRoutesByTo: FileRoutesByTo;
-    to: "/" | "/profiles";
-    id: "__root__" | "/" | "/profiles";
+    to: "/" | "/profiles" | "/search" | "/artwork/$id" | "/artwork";
+    id: "__root__" | "/" | "/profiles" | "/search" | "/artwork/$id" | "/artwork/";
     fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
     IndexRoute: typeof IndexRoute;
     ProfilesRoute: typeof ProfilesRoute;
+    SearchRoute: typeof SearchRoute;
+    ArtworkIdRoute: typeof ArtworkIdRoute;
+    ArtworkIndexRoute: typeof ArtworkIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
     IndexRoute: IndexRoute,
     ProfilesRoute: ProfilesRoute,
+    SearchRoute: SearchRoute,
+    ArtworkIdRoute: ArtworkIdRoute,
+    ArtworkIndexRoute: ArtworkIndexRoute,
 };
 
 export const routeTree = rootRoute
@@ -97,7 +154,10 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/profiles"
+        "/profiles",
+        "/search",
+        "/artwork/$id",
+        "/artwork/"
       ]
     },
     "/": {
@@ -105,6 +165,15 @@ export const routeTree = rootRoute
     },
     "/profiles": {
       "filePath": "profiles.tsx"
+    },
+    "/search": {
+      "filePath": "search.tsx"
+    },
+    "/artwork/$id": {
+      "filePath": "artwork/$id.tsx"
+    },
+    "/artwork/": {
+      "filePath": "artwork/index.tsx"
     }
   }
 }
