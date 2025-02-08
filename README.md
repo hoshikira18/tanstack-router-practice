@@ -20,5 +20,7 @@ This repository contains a collection of small projects I created to review and 
 - validateSearch (define type with valibot)
 - createRootRouteWithContext
 - authenticated routes
+- useBlocker -> hook to block navigate with condition
+- route masking
 
 

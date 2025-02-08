@@ -2,7 +2,7 @@ import "@mantine/core/styles.css";
 import "@mantine/nprogress/styles.css";
 import { MantineProvider, createTheme } from "@mantine/core";
 import { NavigationProgress } from "@mantine/nprogress";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { RouterProvider, createRouteMask, createRouter } from "@tanstack/react-router";
 import { useAuth } from "./hooks/useAuth";
 import { routeTree } from "./routeTree.gen";
 
@@ -10,11 +10,24 @@ const theme = createTheme({
     /** Put your mantine theme override here */
 });
 
+const searchMasks = createRouteMask({
+    routeTree,
+    from: "/search",
+    to: "/search",
+    search: (prev) => ({
+        ...prev,
+        query: undefined,
+        categories: undefined,
+        hasDiscount: undefined,
+    }),
+});
+
 const router = createRouter({
     routeTree,
     context: {
         authentication: undefined!,
     },
+    routeMasks: [searchMasks],
 });
 
 declare module "@tanstack/react-router" {
