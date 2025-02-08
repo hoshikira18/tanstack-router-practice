@@ -1,5 +1,5 @@
 import { Button } from "@mantine/core";
-import { Link, Outlet } from "@tanstack/react-router";
+import { Link, Outlet, useRouter } from "@tanstack/react-router";
 import { useAuth } from "../hooks/useAuth";
 
 const activeProps = {
@@ -11,6 +11,10 @@ const activeProps = {
 
 const MainLayout = () => {
     const { signIn, signOut } = useAuth();
+    const handleSignOut = () => {
+        signOut();
+        window.location.reload();
+    };
     return (
         <div className="space-y-3 p-10">
             <p className="text-xl">Navigations</p>
@@ -24,7 +28,7 @@ const MainLayout = () => {
             </div>
             <div className="space-x-2">
                 <Button onClick={signIn}>Sign In</Button>
-                <Button onClick={signOut}>Sign Out</Button>
+                <Button onClick={handleSignOut}>Sign Out</Button>
             </div>
             <Outlet />
         </div>
