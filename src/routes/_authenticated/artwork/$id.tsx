@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getArtWorks } from "../../api/artwork";
 
-export const Route = createFileRoute("/artwork/$id")({
+export const Route = createFileRoute("/_authenticated/artwork/$id")({
     component: RouteComponent,
 });
 

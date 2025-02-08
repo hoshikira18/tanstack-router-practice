@@ -11,8 +11,9 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
-import { Route as ArtworkIdImport } from "./routes/artwork/$id";
-import { Route as ArtworkIndexImport } from "./routes/artwork/index";
+import { Route as AuthenticatedImport } from "./routes/_authenticated";
+import { Route as AuthenticatedArtworkIdImport } from "./routes/_authenticated/artwork/$id";
+import { Route as AuthenticatedArtworkIndexImport } from "./routes/_authenticated/artwork/index";
 import { Route as IndexImport } from "./routes/index";
 import { Route as ProfilesImport } from "./routes/profiles";
 import { Route as SearchImport } from "./routes/search";
@@ -31,22 +32,27 @@ const ProfilesRoute = ProfilesImport.update({
     getParentRoute: () => rootRoute,
 } as any);
 
+const AuthenticatedRoute = AuthenticatedImport.update({
+    id: "/_authenticated",
+    getParentRoute: () => rootRoute,
+} as any);
+
 const IndexRoute = IndexImport.update({
     id: "/",
     path: "/",
     getParentRoute: () => rootRoute,
 } as any);
 
-const ArtworkIndexRoute = ArtworkIndexImport.update({
+const AuthenticatedArtworkIndexRoute = AuthenticatedArtworkIndexImport.update({
     id: "/artwork/",
     path: "/artwork/",
-    getParentRoute: () => rootRoute,
+    getParentRoute: () => AuthenticatedRoute,
 } as any);
 
-const ArtworkIdRoute = ArtworkIdImport.update({
+const AuthenticatedArtworkIdRoute = AuthenticatedArtworkIdImport.update({
     id: "/artwork/$id",
     path: "/artwork/$id",
-    getParentRoute: () => rootRoute,
+    getParentRoute: () => AuthenticatedRoute,
 } as any);
 
 // Populate the FileRoutesByPath interface
@@ -58,6 +64,13 @@ declare module "@tanstack/react-router" {
             path: "/";
             fullPath: "/";
             preLoaderRoute: typeof IndexImport;
+            parentRoute: typeof rootRoute;
+        };
+        "/_authenticated": {
+            id: "/_authenticated";
+            path: "";
+            fullPath: "";
+            preLoaderRoute: typeof AuthenticatedImport;
             parentRoute: typeof rootRoute;
         };
         "/profiles": {
@@ -74,73 +87,95 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof SearchImport;
             parentRoute: typeof rootRoute;
         };
-        "/artwork/$id": {
-            id: "/artwork/$id";
+        "/_authenticated/artwork/$id": {
+            id: "/_authenticated/artwork/$id";
             path: "/artwork/$id";
             fullPath: "/artwork/$id";
-            preLoaderRoute: typeof ArtworkIdImport;
-            parentRoute: typeof rootRoute;
+            preLoaderRoute: typeof AuthenticatedArtworkIdImport;
+            parentRoute: typeof AuthenticatedImport;
         };
-        "/artwork/": {
-            id: "/artwork/";
+        "/_authenticated/artwork/": {
+            id: "/_authenticated/artwork/";
             path: "/artwork";
             fullPath: "/artwork";
-            preLoaderRoute: typeof ArtworkIndexImport;
-            parentRoute: typeof rootRoute;
+            preLoaderRoute: typeof AuthenticatedArtworkIndexImport;
+            parentRoute: typeof AuthenticatedImport;
         };
     }
 }
 
 // Create and export the route tree
 
+interface AuthenticatedRouteChildren {
+    AuthenticatedArtworkIdRoute: typeof AuthenticatedArtworkIdRoute;
+    AuthenticatedArtworkIndexRoute: typeof AuthenticatedArtworkIndexRoute;
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+    AuthenticatedArtworkIdRoute: AuthenticatedArtworkIdRoute,
+    AuthenticatedArtworkIndexRoute: AuthenticatedArtworkIndexRoute,
+};
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+    AuthenticatedRouteChildren,
+);
+
 export interface FileRoutesByFullPath {
     "/": typeof IndexRoute;
+    "": typeof AuthenticatedRouteWithChildren;
     "/profiles": typeof ProfilesRoute;
     "/search": typeof SearchRoute;
-    "/artwork/$id": typeof ArtworkIdRoute;
-    "/artwork": typeof ArtworkIndexRoute;
+    "/artwork/$id": typeof AuthenticatedArtworkIdRoute;
+    "/artwork": typeof AuthenticatedArtworkIndexRoute;
 }
 
 export interface FileRoutesByTo {
     "/": typeof IndexRoute;
+    "": typeof AuthenticatedRouteWithChildren;
     "/profiles": typeof ProfilesRoute;
     "/search": typeof SearchRoute;
-    "/artwork/$id": typeof ArtworkIdRoute;
-    "/artwork": typeof ArtworkIndexRoute;
+    "/artwork/$id": typeof AuthenticatedArtworkIdRoute;
+    "/artwork": typeof AuthenticatedArtworkIndexRoute;
 }
 
 export interface FileRoutesById {
     __root__: typeof rootRoute;
     "/": typeof IndexRoute;
+    "/_authenticated": typeof AuthenticatedRouteWithChildren;
     "/profiles": typeof ProfilesRoute;
     "/search": typeof SearchRoute;
-    "/artwork/$id": typeof ArtworkIdRoute;
-    "/artwork/": typeof ArtworkIndexRoute;
+    "/_authenticated/artwork/$id": typeof AuthenticatedArtworkIdRoute;
+    "/_authenticated/artwork/": typeof AuthenticatedArtworkIndexRoute;
 }
 
 export interface FileRouteTypes {
     fileRoutesByFullPath: FileRoutesByFullPath;
-    fullPaths: "/" | "/profiles" | "/search" | "/artwork/$id" | "/artwork";
+    fullPaths: "/" | "" | "/profiles" | "/search" | "/artwork/$id" | "/artwork";
     fileRoutesByTo: FileRoutesByTo;
-    to: "/" | "/profiles" | "/search" | "/artwork/$id" | "/artwork";
-    id: "__root__" | "/" | "/profiles" | "/search" | "/artwork/$id" | "/artwork/";
+    to: "/" | "" | "/profiles" | "/search" | "/artwork/$id" | "/artwork";
+    id:
+        | "__root__"
+        | "/"
+        | "/_authenticated"
+        | "/profiles"
+        | "/search"
+        | "/_authenticated/artwork/$id"
+        | "/_authenticated/artwork/";
     fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
     IndexRoute: typeof IndexRoute;
+    AuthenticatedRoute: typeof AuthenticatedRouteWithChildren;
     ProfilesRoute: typeof ProfilesRoute;
     SearchRoute: typeof SearchRoute;
-    ArtworkIdRoute: typeof ArtworkIdRoute;
-    ArtworkIndexRoute: typeof ArtworkIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
     IndexRoute: IndexRoute,
+    AuthenticatedRoute: AuthenticatedRouteWithChildren,
     ProfilesRoute: ProfilesRoute,
     SearchRoute: SearchRoute,
-    ArtworkIdRoute: ArtworkIdRoute,
-    ArtworkIndexRoute: ArtworkIndexRoute,
 };
 
 export const routeTree = rootRoute
@@ -154,14 +189,20 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/_authenticated",
         "/profiles",
-        "/search",
-        "/artwork/$id",
-        "/artwork/"
+        "/search"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/_authenticated": {
+      "filePath": "_authenticated.tsx",
+      "children": [
+        "/_authenticated/artwork/$id",
+        "/_authenticated/artwork/"
+      ]
     },
     "/profiles": {
       "filePath": "profiles.tsx"
@@ -169,11 +210,13 @@ export const routeTree = rootRoute
     "/search": {
       "filePath": "search.tsx"
     },
-    "/artwork/$id": {
-      "filePath": "artwork/$id.tsx"
+    "/_authenticated/artwork/$id": {
+      "filePath": "_authenticated/artwork/$id.tsx",
+      "parent": "/_authenticated"
     },
-    "/artwork/": {
-      "filePath": "artwork/index.tsx"
+    "/_authenticated/artwork/": {
+      "filePath": "_authenticated/artwork/index.tsx",
+      "parent": "/_authenticated"
     }
   }
 }
