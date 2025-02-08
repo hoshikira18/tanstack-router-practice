@@ -18,5 +18,6 @@ This repository contains a collection of small projects I created to review and 
 - useParams hook -> to get dynamic params (id, slug,...)
 - loader
 - validateSearch (define type with valibot)
+- createRootRouteWithContext
 
 
