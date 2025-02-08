@@ -3,6 +3,7 @@ import "@mantine/nprogress/styles.css";
 import { MantineProvider, createTheme } from "@mantine/core";
 import { NavigationProgress } from "@mantine/nprogress";
 import { RouterProvider, createRouteMask, createRouter } from "@tanstack/react-router";
+import Loading from "./components/Loading";
 import { useAuth } from "./hooks/useAuth";
 import { routeTree } from "./routeTree.gen";
 
@@ -28,6 +29,9 @@ const router = createRouter({
         authentication: undefined!,
     },
     routeMasks: [searchMasks],
+    defaultPendingComponent: Loading,
+    defaultPendingMs: 0,
+    defaultPendingMinMs: 250,
 });
 
 declare module "@tanstack/react-router" {
